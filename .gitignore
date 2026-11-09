@@ -13,3 +13,10 @@ __pycache__/
 # Datos pesados y modelos
 *.ckpt
 *.pth
+
+# Windows
+Thumbs.db
+desktop.ini
+# Archivos de bloqueo de LibreOffice y Excel
+.~lock.*
+~$*
