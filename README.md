@@ -14,30 +14,37 @@ Proyecto transversal del curso *Programación para la Ciencia de Datos* (MCDI500
 ## Datos
 
 - **Fuente:** Tesorería General de la República. (2025). *tb_patentes_aguas* [Conjunto de datos]. Portal de Datos Abiertos del Gobierno de Chile. https://datos.gob.cl/dataset/tb-patentes-aguas
-- **Archivo:** `F1/data/raw/tb_patentes_aguas_december_2025_data.csv` (corte a diciembre de 2025).
+- **Archivo:** `data/raw/tb_patentes_aguas_december_2025_data.csv` (corte a diciembre de 2025).
 - **Tamaño:** 46.467 registros y 21 variables (aprox. 12 MB).
 - **Licencia o condiciones de uso:** [Licencia].
-- **Versionado:** el CSV se incluye en el repositorio porque pesa bastante menos que el límite de GitHub (50 MB). No es necesario descargarlo aparte.
-- **Integridad:** el archivo de `data/raw/` no se modifica nunca. Su hash SHA-256 permite verificar que es el original:
+- **No se incluye en el repositorio.** El archivo contiene el RUT de los titulares (columna `RUT_ROL`), por lo que `data/raw/` está en el `.gitignore`. Cada integrante lo descarga y lo deja en su computador.
+- **Cómo obtenerlo:** descargar el CSV desde https://datos.gob.cl/dataset/tb-patentes-aguas y guardarlo, sin abrirlo ni modificarlo, como `data/raw/tb_patentes_aguas_december_2025_data.csv` (crear la carpeta `data/raw/` en la raíz del proyecto si no existe).
+- **Integridad:** el archivo de `data/raw/` no se modifica nunca. Su hash SHA-256 permite verificar que es exactamente el mismo que usa el grupo:
 
-      sha256sum F1/data/raw/tb_patentes_aguas_december_2025_data.csv
+      sha256sum data/raw/tb_patentes_aguas_december_2025_data.csv                  # Git Bash, Linux
+      shasum -a 256 data/raw/tb_patentes_aguas_december_2025_data.csv              # macOS
+      certutil -hashfile data\raw\tb_patentes_aguas_december_2025_data.csv SHA256  # Windows, cmd o PowerShell
       # SHA-256 esperado: f62e813e539172912c81adb73fb46a61040e793aeb30de7a764eae8b04064a30
 
 ## Estructura del repositorio
 
     proyecto-grupo9-mcdi500/
+    ├─ data/
+    │  ├─ raw/         datos originales, sin modificar (NO se suben: contienen RUT)
+    │  └─ processed/   datos tras limpieza y transformación (F2)
+    ├─ docs/           diccionario, fichas y documentación generada
+    ├─ src/            módulos reutilizables (utilidades.py)
     ├─ F1/   Definición del problema y entorno reproducible
-    │  ├─ data/raw/         datos originales, sin modificar
-    │  ├─ data/processed/   datos tras limpieza y transformación
-    │  ├─ notebooks/        F1_Definicion.ipynb
-    │  ├─ src/              funciones reutilizables (.py)
-    │  └─ docs/             documentación y referencias
+    │  ├─ F1_Definicion.ipynb    notebook de la fase
+    │  └─ F1_Definicion.html     versión ejecutada, con salidas
     ├─ F2/   Obtención, limpieza y transformación de datos
     ├─ F3/   Núcleo algorítmico: programación estructurada, recursiva y POO
     ├─ F4/   Análisis, visualización y comunicación de resultados
     ├─ requirements.txt
     ├─ .gitignore
     └─ README.md
+
+Los datos, `src/` y `docs/` son comunes a todas las fases; solo los notebooks e informes se separan por fase. Cada notebook localiza la raíz del proyecto por sí mismo, por lo que no usa rutas propias de ningún computador.
 
 ## Requisitos y ejecución
 
@@ -62,11 +69,15 @@ Python 3.13
     python -m nbstripout --install
     python -m ipykernel install --user --name grupo9_mcdi500 --display-name "Python (grupo9-mcdi500)"
 
-**4. Abrir JupyterLab desde la raíz del proyecto**
+**4. Dejar el CSV en `data/raw/`** (ver la sección *Datos*) y verificar su hash SHA-256.
+
+**5. Abrir JupyterLab desde la raíz del proyecto**
 
     python -m jupyterlab
 
-En cada notebook, elegir el kernel **Python (grupo9-mcdi500)** y ejecutar los notebooks en orden (F1 → F4) desde la raíz del proyecto.
+En cada notebook, elegir el kernel **Python (grupo9-mcdi500)** y ejecutar con *Kernel → Restart Kernel and Run All Cells*, en orden (F1 → F4). Como `nbstripout` guarda los notebooks sin salidas, cada fase incluye además su versión ejecutada en HTML, que se genera con:
+
+    python -m nbconvert --to html F1/F1_Definicion.ipynb
 
 > Nota para Windows: si un comando como `nbstripout` o `jupyter kernelspec` responde *Permission denied* o *Acceso denegado*, ejecútelo como módulo de Python (`python -m nbstripout`, `python -m jupyterlab`).
 
@@ -77,7 +88,7 @@ Prefijos del curso, con la descripción en presente y **sin tildes ni caracteres
 | Prefijo | Uso | Ejemplo |
 |---|---|---|
 | `docs` | Documentación, README, informe | `docs: documenta criterios de limpieza en el README` |
-| `data` | Cambios en los datos o su procesamiento | `data: incorpora dataset original en F1/data/raw` |
+| `data` | Cambios en el procesamiento de los datos | `data: guarda tabla limpia en data/processed` |
 | `feat` | Funcionalidad o análisis nuevo | `feat: notebook F1 con perfilamiento de nulos` |
 | `fix` | Corrección de un error | `fix: corrige lectura de montos con separador de miles` |
 
@@ -87,11 +98,13 @@ Ramas por fase y tema (por ejemplo, `f2-limpieza-datos`), integradas a `main` me
 
 ## Decisiones técnicas
 
-- **Datos originales inmutables.** El CSV de `F1/data/raw/` no se edita. Toda limpieza se programa en los notebooks y sus resultados se guardan en `data/processed/`, para que cualquier transformación pueda verificarse contra el original.
+- **Datos originales inmutables.** El CSV de `data/raw/` no se edita. Toda limpieza se programa en los notebooks y sus resultados se guardan en `data/processed/`, para que cualquier transformación pueda verificarse contra el original.
 - **Registros incompletos conservados.** Los 691 registros sin año de patente y las filas con tesorería no identificada se mantienen en `data/raw/`. El criterio para tratarlos (imputar o excluir) se documentará en el notebook de F2, con su motivo e impacto.
-- **CSV versionado.** Al pesar cerca de 12 MB, se incluye en el repositorio para que el proyecto pueda ejecutarse completo sin pasos adicionales.
+- **Datos personales fuera del repositorio.** El CSV original contiene el RUT de los titulares, por lo que no se versiona: `data/raw/` está en el `.gitignore` y cada integrante lo descarga desde la fuente oficial, verificando el hash SHA-256. Por la misma razón, ningún archivo de `data/processed/` que conserve la columna `RUT_ROL` se sube al repositorio, y las salidas de los notebooks no muestran RUT.
+- **Estructura común de datos.** Siguiendo la indicación del docente, los datos van en `data/` en la raíz (comunes a todas las fases) y no dentro de cada fase.
 - **Notebooks sin salidas en Git.** `nbstripout` elimina las salidas antes de cada commit, para evitar diffs ilegibles y conflictos. Antes de entregar, cada notebook debe correr completo con *Restart Kernel and Run All Cells*.
-- **`.gitignore` para equipos mixtos.** Excluye el entorno virtual, cachés, checkpoints de Jupyter, archivos de sistema de Windows y macOS, y archivos de bloqueo de LibreOffice y Excel.
+- **`.gitignore` para equipos mixtos.** Excluye el entorno virtual, cachés, checkpoints de Jupyter, archivos de sistema de Windows y macOS, archivos de bloqueo de LibreOffice y Excel, y los datos originales (`data/raw/`). El notebook F1 lo regenera con este mismo contenido.
+- **Dependencias directas.** `requirements.txt` lo genera el notebook F1 con las librerías que el proyecto importa (con su versión) y las herramientas del flujo de trabajo, sin dependencias transitivas, para que se instale igual en Windows y macOS.
 
 ## Uso de inteligencia artificial
 
