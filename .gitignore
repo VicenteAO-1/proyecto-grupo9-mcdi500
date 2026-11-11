@@ -20,3 +20,6 @@ desktop.ini
 # Archivos de bloqueo de LibreOffice y Excel
 .~lock.*
 ~$*
+
+# Datos originales: contienen el RUT de los titulares, no se suben
+data/raw/
