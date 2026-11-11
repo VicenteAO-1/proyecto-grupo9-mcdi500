@@ -16,7 +16,7 @@ Proyecto transversal del curso *Programación para la Ciencia de Datos* (MCDI500
 - **Fuente:** Tesorería General de la República. (2025). *tb_patentes_aguas* [Conjunto de datos]. Portal de Datos Abiertos del Gobierno de Chile. https://datos.gob.cl/dataset/tb-patentes-aguas
 - **Archivo:** `data/raw/tb_patentes_aguas_december_2025_data.csv` (corte a diciembre de 2025).
 - **Tamaño:** 46.467 registros y 21 variables (aprox. 12 MB).
-- **Licencia o condiciones de uso:** [Licencia].
+- **Licencia o condiciones de uso:** [Creative Commons CCZero (CC0 1.0 Universal)](https://creativecommons.org/publicdomain/zero/1.0/), según la ficha del dataset en datos.gob.cl.
 - **No se incluye en el repositorio.** El archivo contiene el RUT de los titulares (columna `RUT_ROL`), por lo que `data/raw/` está en el `.gitignore`. Cada integrante lo descarga y lo deja en su computador.
 - **Cómo obtenerlo:** descargar el CSV desde https://datos.gob.cl/dataset/tb-patentes-aguas y guardarlo, sin abrirlo ni modificarlo, como `data/raw/tb_patentes_aguas_december_2025_data.csv` (crear la carpeta `data/raw/` en la raíz del proyecto si no existe).
 - **Integridad:** el archivo de `data/raw/` no se modifica nunca. Su hash SHA-256 permite verificar que es exactamente el mismo que usa el grupo:
