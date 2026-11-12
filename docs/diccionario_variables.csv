@@ -1,0 +1,22 @@
+variable,rol_analitico,descripcion,dtype,n_unicos,pct_nulos
+CUENTA,identificador,Identificador único de la cuenta,float64,46467,0.0
+RUT_ROL,identificador,"RUT del titular, sin dígito verificador (dato personal: no se publica)",str,4504,0.0
+TIPO_PERSONA,binaria,Tipo de persona registrado,str,2,0.0
+RUT_ROL_DV,nominal,Dígito verificador del RUT,str,1,0.0
+FORM_FOLIO,continua,Número de folio del formulario,float64,6787,0.0
+MONTO,continua,Monto asociado a la patente,float64,18878,0.0
+SALDO,continua,Saldo registrado de la patente,float64,15329,0.0
+PAGADO,continua,Monto pagado,float64,5187,0.0
+FECHA,fecha,Fecha del registro,str,390,0.0
+MOV_TIPO,discreta,Código del tipo de movimiento,float64,1,0.0
+TESORERIA,alta cardinalidad,Tesorería asociada al registro,str,46,0.1
+TESORERIA_REGIONAL,alta cardinalidad,Tesorería regional correspondiente,str,18,0.1
+COMUNA,alta cardinalidad,Comuna asociada a la patente,str,319,0.0
+CONCESION,alta cardinalidad,Identificación de la concesión,str,385,0.0
+PROVINCIA,alta cardinalidad,Provincia asociada al registro,str,56,1.5
+OFICINA_CBR,alta cardinalidad,Oficina del Conservador de Bienes Raíces,str,137,0.0
+N_DE_CORRELATIVO_O_PATENTE,continua,Número correlativo o de patente,float64,7331,1.5
+ANIO_PATENTE,discreta,Año correspondiente a la patente,float64,19,1.5
+UTM,continua,Valor registrado en UTM,float64,7723,0.0
+OFICINA,alta cardinalidad,Oficina asociada al registro,str,303,0.0
+FECHA_EJECUCION,fecha,Fecha de ejecución del proceso,str,1,0.0
