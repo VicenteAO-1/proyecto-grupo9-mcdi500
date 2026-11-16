@@ -1,0 +1,21 @@
+clave,valor
+proyecto.nombre,Análisis de la morosidad en patentes por no uso de derechos de aprovechamiento de aguas en Chile
+proyecto.fase,F2
+proyecto.semilla,42
+datos.archivo,tb_patentes_aguas_december_2025_data.csv
+datos.filas_originales,46467
+datos.filas_finales,46433
+datos.fecha_ejecucion,2025-12-01
+datos.fuente.plataforma,Portal de Datos Abiertos del Gobierno de Chile
+datos.fuente.autor,COMPLETAR (organismo publicador)
+datos.fuente.url,COMPLETAR (enlace del conjunto de datos)
+decisiones.columnas_eliminadas,"RUT_ROL, RUT_ROL_DV, CUENTA, FORM_FOLIO, MOV_TIPO, FECHA_EJECUCION, TESORERIA, OFICINA, OFICINA_CBR, COMUNA, PROVINCIA, CONCESION, N_DE_CORRELATIVO_O_PATENTE"
+decisiones.imputacion.TESORERIA_REGIONAL,eliminar filas (34 nulos)
+decisiones.imputacion.ANIO_PATENTE,valor centinela 0 con indicador anio_faltante (691 nulos)
+decisiones.escalador,standard
+decisiones.columnas_escaladas,"MONTO, UTM"
+decisiones.categoricas,"TIPO_PERSONA, TESORERIA_REGIONAL"
+decisiones.fecha.FECHA,dias_desde_inicio
+decisiones.fecha.referencia,2021-01-27
+decisiones.variable_objetivo,moroso = (SALDO > 0)
+decisiones.excluidas_del_modelado,"SALDO, PAGADO"
