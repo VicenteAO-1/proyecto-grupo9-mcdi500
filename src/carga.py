@@ -74,3 +74,97 @@ def preparar_crudo(df):
     (34 filas en el archivo real: 46.467 -> 46.433).
     """
     return eliminar_filas_nulas(eliminar_columnas(df), "TESORERIA_REGIONAL")
+
+
+# ----------------------------------------------------------------------------
+# Salidas de F3 para F4: diccionario de columnas y guardado de entregables
+# ----------------------------------------------------------------------------
+DESCRIPCIONES = {
+    "MONTO": "Monto asociado a la patente",
+    "SALDO": "Saldo impago de la patente (negativo = pago en exceso)",
+    "PAGADO": "Monto pagado",
+    "ANIO_PATENTE": "Año de la patente (0 = faltante en el archivo)",
+    "UTM": "Valor registrado en UTM",
+    "anio_faltante": "1 si el año de la patente no venía en el archivo",
+    "moroso": "Variable objetivo: 1 si SALDO > 0, 0 en otro caso",
+}
+
+
+def describir_columnas(df, originales, objetivo="moroso", excluidas=()):
+    """Devuelve un DataFrame con el diccionario del conjunto procesado.
+
+    Parámetros
+    ----------
+    df : pd.DataFrame
+        Conjunto ya procesado.
+    originales : iterable de str
+        Columnas que vienen del archivo original (para marcar el origen).
+    objetivo : str
+        Nombre de la variable objetivo.
+    excluidas : iterable de str
+        Columnas que no deben entrar al modelado (por ejemplo, por fuga de información).
+
+    Retorna
+    -------
+    pd.DataFrame
+        Una fila por columna: tipo, rol, origen, nulos y descripción.
+    """
+    originales, excluidas = set(originales), set(excluidas)
+    filas = []
+    for col in df.columns:
+        if col == objetivo:
+            rol, origen = "objetivo", "derivada de SALDO"
+        else:
+            rol = "excluida del modelado" if col in excluidas else "predictora"
+            if col in originales:
+                origen = "original"
+            elif col.startswith("LOG_"):
+                origen = f"log1p de {col[4:]}"
+            elif col.startswith("teso_"):
+                origen = "one-hot de TESORERIA_REGIONAL"
+            elif col.startswith("persona_"):
+                origen = "one-hot de TIPO_PERSONA"
+            elif col == "anio_faltante":
+                origen = "indicador de ANIO_PATENTE"
+            else:
+                origen = "derivada"
+        if col in DESCRIPCIONES:
+            desc = DESCRIPCIONES[col]
+        elif col.startswith("LOG_"):
+            desc = f"Logaritmo log1p de {col[4:]} (valores negativos pasan a 0)"
+        elif col.startswith(("teso_", "persona_")):
+            desc = "Indicador binario (1 = la fila pertenece a esta categoría)"
+        else:
+            desc = ""
+        filas.append({"columna": col, "tipo": str(df[col].dtype), "rol": rol,
+                      "origen": origen, "nulos": int(df[col].isna().sum()),
+                      "descripcion": desc})
+    return pd.DataFrame(filas)
+
+
+def guardar_entregables(entrenamiento, prueba, pipeline, diccionario, carpeta):
+    """Guarda en `carpeta` los cuatro archivos que recibe F4.
+
+    Escribe entrenamiento_f3.csv, prueba_f3.csv, diccionario_f3.csv y
+    parametros_f3.csv (lo que aprendió cada paso del pipeline, en JSON).
+    Retorna un dict {nombre: ruta}.
+    """
+    import json
+
+    carpeta = Path(carpeta)
+    carpeta.mkdir(parents=True, exist_ok=True)
+    rutas = {
+        "entrenamiento": carpeta / "entrenamiento_f3.csv",
+        "prueba": carpeta / "prueba_f3.csv",
+        "diccionario": carpeta / "diccionario_f3.csv",
+        "parametros": carpeta / "parametros_f3.csv",
+    }
+    entrenamiento.to_csv(rutas["entrenamiento"], index=False)
+    prueba.to_csv(rutas["prueba"], index=False)
+    diccionario.to_csv(rutas["diccionario"], index=False)
+    pd.DataFrame(
+        [{"orden": i, "paso": nombre.split("_", 1)[1],
+          "parametros": json.dumps(valores, ensure_ascii=False, default=str)}
+         for i, (nombre, valores) in enumerate(pipeline.parametros().items(), start=1)]
+    ).to_csv(rutas["parametros"], index=False)
+    return rutas
