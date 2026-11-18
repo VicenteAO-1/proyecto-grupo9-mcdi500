@@ -108,4 +108,4 @@ Ramas por fase y tema (por ejemplo, `f2-limpieza-datos`), integradas a `main` me
 
 ## Uso de inteligencia artificial
 
-El equipo utilizó herramientas de IA generativa como apoyo en la documentación y en la configuración del entorno. Las decisiones metodológicas, la verificación de resultados y el código entregado son responsabilidad de los integrantes, quienes pueden explicar cada paso del proyecto.
+El equipo utilizó herramientas de IA generativa (Anthropic, 2026) como apoyo en la documentación, en la configuración del entorno y, en la Fase 3, en la orientación del trabajo con Git y GitHub y en la redacción de borradores del código de apoyo (`src/medicion.py`, `src/recursion.py` y `tests/`) y de la documentación de `F3/`. Cada integrante ejecutó el código en su equipo, los cambios se revisaron y aprobaron mediante pull requests, y las decisiones metodológicas, la verificación de resultados y el código entregado son responsabilidad de los integrantes, quienes pueden explicar cada paso del proyecto.
