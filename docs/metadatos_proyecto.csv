@@ -7,8 +7,8 @@ datos.filas_originales,46467
 datos.filas_finales,46433
 datos.fecha_ejecucion,2025-12-01
 datos.fuente.plataforma,Portal de Datos Abiertos del Gobierno de Chile
-datos.fuente.autor,COMPLETAR (organismo publicador)
-datos.fuente.url,COMPLETAR (enlace del conjunto de datos)
+datos.fuente.autor,Datos.gob.cl
+datos.fuente.url,https://datos.gob.cl/dataset/tb-patentes-aguas
 decisiones.columnas_eliminadas,"RUT_ROL, RUT_ROL_DV, CUENTA, FORM_FOLIO, MOV_TIPO, FECHA_EJECUCION, TESORERIA, OFICINA, OFICINA_CBR, COMUNA, PROVINCIA, CONCESION, N_DE_CORRELATIVO_O_PATENTE"
 decisiones.imputacion.TESORERIA_REGIONAL,eliminar filas (34 nulos)
 decisiones.imputacion.ANIO_PATENTE,valor centinela 0 con indicador anio_faltante (691 nulos)
