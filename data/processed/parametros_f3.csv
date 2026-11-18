@@ -1,0 +1,6 @@
+orden,paso,parametros
+1,TratamientoAnio,{}
+2,CodificadorOneHot,"{""categorias"": [""TESORERÍA REGIONAL DE ANTOFAGASTA"", ""TESORERÍA REGIONAL DE ARICA Y PARINACOTA"", ""TESORERÍA REGIONAL DE ATACAMA"", ""TESORERÍA REGIONAL DE AYSEN"", ""TESORERÍA REGIONAL DE COQUIMBO"", ""TESORERÍA REGIONAL DE LA ARAUCANIA"", ""TESORERÍA REGIONAL DE LOS LAGOS"", ""TESORERÍA REGIONAL DE LOS RIOS"", ""TESORERÍA REGIONAL DE MAGALLANES"", ""TESORERÍA REGIONAL DE TARAPACA"", ""TESORERÍA REGIONAL DE VALPARAÍSO"", ""TESORERÍA REGIONAL DE ÑUBLE"", ""TESORERÍA REGIONAL DEL BIO BIO"", ""TESORERÍA REGIONAL DEL MAULE"", ""TESORERÍA REGIONAL LIB. GRAL BERNARDO OHIGGINS"", ""TESORERÍA REGIONAL SANTIAGO ORIENTE"", ""TESORERÍA REGIONAL SANTIAGO PONIENTE"", ""TESORERÍA REGIONAL SANTIAGO SUR""], ""nombres"": [""teso_antofagasta"", ""teso_arica_parinacota"", ""teso_atacama"", ""teso_aysen"", ""teso_coquimbo"", ""teso_araucania"", ""teso_los_lagos"", ""teso_los_rios"", ""teso_magallanes"", ""teso_tarapaca"", ""teso_valparaiso"", ""teso_nuble"", ""teso_biobio"", ""teso_maule"", ""teso_ohiggins"", ""teso_santiago_oriente"", ""teso_santiago_poniente"", ""teso_santiago_sur""]}"
+3,CodificadorOneHot,"{""categorias"": [""JURIDICA"", ""NATURAL""], ""nombres"": [""persona_juridica"", ""persona_natural""]}"
+4,TransformacionLog,{}
+5,CreacionMoroso,{}

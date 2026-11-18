@@ -1,0 +1,32 @@
+columna,tipo,rol,origen,nulos,descripcion
+MONTO,float64,predictora,original,0,Monto asociado a la patente
+SALDO,float64,excluida del modelado,original,0,Saldo impago de la patente (negativo = pago en exceso)
+PAGADO,float64,excluida del modelado,original,0,Monto pagado
+ANIO_PATENTE,int64,predictora,original,0,Año de la patente (0 = faltante en el archivo)
+UTM,float64,predictora,original,0,Valor registrado en UTM
+anio_faltante,int64,predictora,indicador de ANIO_PATENTE,0,1 si el año de la patente no venía en el archivo
+teso_antofagasta,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_arica_parinacota,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_atacama,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_aysen,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_coquimbo,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_araucania,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_los_lagos,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_los_rios,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_magallanes,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_tarapaca,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_valparaiso,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_nuble,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_biobio,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_maule,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_ohiggins,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_santiago_oriente,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_santiago_poniente,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+teso_santiago_sur,int64,predictora,one-hot de TESORERIA_REGIONAL,0,Indicador binario (1 = la fila pertenece a esta categoría)
+persona_juridica,int64,predictora,one-hot de TIPO_PERSONA,0,Indicador binario (1 = la fila pertenece a esta categoría)
+persona_natural,int64,predictora,one-hot de TIPO_PERSONA,0,Indicador binario (1 = la fila pertenece a esta categoría)
+LOG_MONTO,float64,predictora,log1p de MONTO,0,Logaritmo log1p de MONTO (valores negativos pasan a 0)
+LOG_UTM,float64,predictora,log1p de UTM,0,Logaritmo log1p de UTM (valores negativos pasan a 0)
+LOG_SALDO,float64,excluida del modelado,log1p de SALDO,0,Logaritmo log1p de SALDO (valores negativos pasan a 0)
+LOG_PAGADO,float64,excluida del modelado,log1p de PAGADO,0,Logaritmo log1p de PAGADO (valores negativos pasan a 0)
+moroso,int64,objetivo,derivada de SALDO,0,"Variable objetivo: 1 si SALDO > 0, 0 en otro caso"
