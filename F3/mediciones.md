@@ -9,10 +9,10 @@ En ambas comparaciones las dos versiones dan **el mismo resultado** (el programa
 
 | Versión | Tiempo (s) | Memoria (MiB) | Complejidad temporal | Complejidad espacial |
 | --- | --- | --- | --- | --- |
-| Bucle fila a fila (`moroso_bucle`) | 0,011209 | 2,947 | O(n) en Python | O(n) |
-| Vectorizada (`moroso_vectorizado`) | 0,000138 | 0,402 | O(n) en C (NumPy) | O(n) |
+| Bucle fila a fila (`moroso_bucle`) | 0,008343 | 2,947 | O(n) en Python | O(n) |
+| Vectorizada (`moroso_vectorizado`) | 0,000099 | 0,402 | O(n) en C (NumPy) | O(n) |
 
-La versión vectorizada es 81,3 veces más rápida y usa menos memoria (el bucle construye una lista de Python antes de pasarla a una Serie).
+La versión vectorizada es 84,7 veces más rápida y usa menos memoria (el bucle construye una lista de Python antes de pasarla a una Serie).
 
 **Decisión:** se usa la versión vectorizada (`SALDO > 0`), que es la que está en `CreacionMoroso`. Ambas son O(n), pero el recorrido en C evita el costo de ejecutar el bucle en Python.
 
@@ -20,12 +20,12 @@ La versión vectorizada es 81,3 veces más rápida y usa menos memoria (el bucle
 
 | Versión | Tiempo (s) | Memoria (MiB) | Complejidad temporal | Complejidad espacial |
 | --- | --- | --- | --- | --- |
-| Diccionario recorrido a mano (`tasa_diccionario`) | 0,024867 | 0,011 | O(n) en Python | O(k) |
-| `groupby` (`tasa_groupby`) | 0,004373 | 2,268 | O(n) en C | O(n) |
+| Diccionario recorrido a mano (`tasa_diccionario`) | 0,017847 | 0,011 | O(n) en Python | O(k) |
+| `groupby` (`tasa_groupby`) | 0,004416 | 2,268 | O(n) en C | O(n) |
 
 (k = 18 tesorerías, n = 46.433 filas.)
 
-`groupby` es 5,7 veces más rápido, pero usa más memoria porque crea estructuras intermedias del tamaño de los datos. El diccionario guarda solo 18 pares de contadores.
+`groupby` es 4,0 veces más rápido, pero usa más memoria porque crea estructuras intermedias del tamaño de los datos. El diccionario guarda solo 18 pares de contadores.
 
 **Decisión:** se usa `groupby`. Con 46 mil filas la diferencia de memoria (unos 2 MiB) no es un problema, y la ganancia de tiempo y la claridad del código pesan más. Si los datos crecieran mucho y la memoria fuera la restricción, el diccionario sería la alternativa, porque su memoria depende de las tesorerías (k) y no de las filas (n).
 
