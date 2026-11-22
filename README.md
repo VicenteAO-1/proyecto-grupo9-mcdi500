@@ -81,6 +81,20 @@ En cada notebook, elegir el kernel **Python (grupo9-mcdi500)** y ejecutar con *K
 
 > Nota para Windows: si un comando como `nbstripout` o `jupyter kernelspec` responde *Permission denied* o *Acceso denegado*, ejecútelo como módulo de Python (`python -m nbstripout`, `python -m jupyterlab`).
 
+## Fase 4: cómo reproducir el análisis
+
+Desde la raíz del proyecto y con el entorno activo (no requiere el CSV original, solo `data/processed/`):
+
+    python -m pytest -q                                   # 39 pruebas pasan, 1 se omite sin el CSV original
+    python F4/generar_figuras.py                          # F4/figuras/fig1, fig2 y fig3
+    python F4/generar_diagrama.py                         # docs/arquitectura.png
+    python -m jupyter nbconvert --to notebook --execute --inplace F4/notebook_f4.ipynb
+    python -m jupyter nbconvert --to html F4/notebook_f4.ipynb
+
+El notebook `F4/notebook_f4.ipynb` regenera `F3/mediciones.md`, así que el informe, el HTML y el video usan las mismas cifras. El registro de cambios está en `changelog.md`.
+
+> No vuelva a ejecutar la celda 3.2 del notebook F1: reescribiría `requirements.txt` sin las versiones fijas de las herramientas de Jupyter.
+
 ## Convención de commits
 
 Prefijos del curso, con la descripción en presente y **sin tildes ni caracteres especiales**:
@@ -108,4 +122,4 @@ Ramas por fase y tema (por ejemplo, `f2-limpieza-datos`), integradas a `main` me
 
 ## Uso de inteligencia artificial
 
-El equipo utilizó herramientas de IA generativa (Anthropic, 2026) como apoyo en la documentación, en la configuración del entorno y, en la Fase 3, en la orientación del trabajo con Git y GitHub y en la redacción de borradores del código de apoyo (`src/medicion.py`, `src/recursion.py` y `tests/`) y de la documentación de `F3/`. Cada integrante ejecutó el código en su equipo, los cambios se revisaron y aprobaron mediante pull requests, y las decisiones metodológicas, la verificación de resultados y el código entregado son responsabilidad de los integrantes, quienes pueden explicar cada paso del proyecto.
+El equipo utilizó herramientas de IA generativa (Anthropic, 2026) como apoyo en la documentación, en la configuración del entorno, en la Fase 4 en la redacción de borradores de `src/indicadores.py`, sus pruebas, `F4/` y el informe, y, en la Fase 3, en la orientación del trabajo con Git y GitHub y en la redacción de borradores del código de apoyo (`src/medicion.py`, `src/recursion.py` y `tests/`) y de la documentación de `F3/`. Cada integrante ejecutó el código en su equipo, los cambios se revisaron y aprobaron mediante pull requests, y las decisiones metodológicas, la verificación de resultados y el código entregado son responsabilidad de los integrantes, quienes pueden explicar cada paso del proyecto.
