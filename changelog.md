@@ -1,7 +1,7 @@
 # Changelog — Proyecto Grupo 9 (MCDI500)
 
 Registro de cambios por fase. Cada fila indica fecha, descripción, commit y justificación técnica.
-Los commits de F1 a F3 son los del historial de `main`. Los de F4 son los commits reales de cada rama, integrados en `main` mediante los pull requests #7 a #10.
+Los commits de F1 a F3 son los del historial de `main`. Los de F4 son los commits reales de cada rama, integrados en `main` mediante los pull requests #7 a #13.
 
 ## Fase 1: definición y entorno reproducible
 
@@ -43,6 +43,7 @@ Cada cambio responde a una observación de la retroalimentación de la Fase 3 (2
 | 2026-11-22 | `F4/generar_figuras.py`: tres figuras (líneas con banda, barras con intervalos y violín con caja del monto en UTM) con título que enuncia el hallazgo, unidades y fuente | `f57be4e` (PR #9) | Figuras reproducibles por script; el año 0 no se grafica |
 | 2026-11-22 | `F4/generar_diagrama.py` y `docs/arquitectura.png` | `f57be4e` (PR #9) | Documentación de la arquitectura |
 | 2026-11-22 | `F3/mediciones.md` regenerado desde la ejecución del notebook F4 | `39a7fbd` (PR #8) | Las cifras de eficiencia coinciden entre informe, HTML y repositorio |
+| 2026-11-22 | `F3/mediciones.md` alineado con las cifras de la ejecución que generó el HTML del notebook (78,5 veces; `groupby` 4,3 veces) | `003b256` (PR #12) | Informe, HTML y repositorio muestran los mismos tiempos |
 | 2026-11-22 | `F4/notebook_f4.ipynb` y `.html`: análisis, modelo con línea base y regeneración de cifras | `2d0987d` (PR #10) | Una sola ejecución alimenta informe, HTML y video |
 | 2026-11-22 | `requirements.txt`: versión fija en todas las dependencias, incluidas `ipykernel`, `jupyterlab`, `notebook` y `pytest` | `2d0987d` (PR #10) | Reproducibilidad completa del entorno |
 
